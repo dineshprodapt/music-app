@@ -1,6 +1,6 @@
 <div *ngIf="!showPlayList" class="playlist">
-    <h4 *ngIf="playListData.length == 0">You don't have Playlist. Create one!</h4>
-    <div *ngIf="playListData.length > 0">
+    <h4 *ngIf="!playListData">You don't have Playlist. Create one!</h4>
+    <div *ngIf="playListData && playListData.length > 0">
         <div class="mat-elevation-z4 playlist__elevate" *ngFor="let item of playListData">
             <mat-list role="list" class="container" (click)="onSelectPlaylist(item)">
                 <div class="container__left">

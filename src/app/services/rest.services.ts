@@ -1,8 +1,9 @@
-import { throwError, Observable, of } from 'rxjs';
+import { throwError, Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
+import {forkJoin} from 'rxjs';
 
 const apiUrl = environment.api;
 
@@ -36,12 +37,25 @@ export class RestService {
       );
   }
 
+    
+  getAllSongsFromAlbum(): Observable<any> {
+
+    return forkJoin(
+      this.httpClient.get<any[]>(`${apiUrl}`+'photos?albumId='+`1`),
+      this.httpClient.get<any[]>(`${apiUrl}`+'photos?albumId='+`2`),
+      this.httpClient.get<any[]>(`${apiUrl}`+'photos?albumId='+`3`)
+      .pipe(
+           catchError((err) => this.handleError(err, `${apiUrl}`+'albums'))
+        ))
+   
+  }
+
    
   searchAlbums(userId): Observable<any> {
 
-    return this.httpClient.get<any[]>('photos?albumId='+`${userId}`)
+    return this.httpClient.get<any[]>(`${apiUrl}`+'photos?albumId='+`${userId}`)
       .pipe(
-      catchError((err) => this.handleError(err,'photos?albumId='+`${userId}`))
+      catchError((err) => this.handleError(err,'`${apiUrl}`+photos?albumId='+`${userId}`))
       );
   }
 

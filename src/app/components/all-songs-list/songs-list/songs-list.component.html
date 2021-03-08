@@ -4,17 +4,12 @@
         <input matInput
                aria-label="Songs"
                placeholder="Songs"
-               [matAutocomplete]="auto"
-               [formControl]="stateCtrl">
-        <mat-autocomplete #auto="matAutocomplete">
-          <mat-option *ngFor="let state of filteredStates | async" [value]="state.title" (click)="onSelect(state)">
-            <span>{{state.title}}</span>
-          </mat-option>
-        </mat-autocomplete>
+               (input)="onSearchFilter($event)">
     </mat-form-field>
+
 </div> 
 
-<div class="mat-elevation-z4 songs_list__elevate" *ngFor="let item of albumSongs">
+<div class="mat-elevation-z4 songs_list__elevate" *ngFor="let item of albumFiltered">
     <mat-list role="list" class="container">
         <div class="container__left">
             <mat-list-item role="listitem">Song Name: {{item.title}}</mat-list-item>

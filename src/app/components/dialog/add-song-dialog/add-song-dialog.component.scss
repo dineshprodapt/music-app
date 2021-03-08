@@ -1,0 +1,12 @@
+.container {
+    cursor: pointer;
+    &__left {
+        float: left;
+        width: 60%;
+    }
+    &__right button {
+            position: relative;
+            left: 70px;
+            top: -40px;
+        }
+    }

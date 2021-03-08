@@ -22,7 +22,6 @@ export class PlaylistDialogComponent implements OnInit {
 
   ngOnInit(): void {
     this.restService.getAllSongsList().subscribe(data => {
-      console.log("popup", data);
       let resArr = [];
 
       data.forEach(function(item){
@@ -31,7 +30,6 @@ export class PlaylistDialogComponent implements OnInit {
           resArr.push({id: item.id, userId: item.userId});
         }
       });
-      console.log(resArr);  
       this.filteredArray = resArr;    
 
     })
@@ -39,9 +37,7 @@ export class PlaylistDialogComponent implements OnInit {
   }
 
   createPlayList() {
-     console.log(this.data);
      this.restService.searchAlbums(this.data.albumId).subscribe(res => {
-       console.log(res);
        var arr= [];
        let playlist = {"playlistname": this.data.playlistname, "creationDate": new Date()};
        let playlistFromStorage = JSON.parse(localStorage.getItem('playlist'))

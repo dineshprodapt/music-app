@@ -20,7 +20,6 @@ export class PlaylistSongsComponent implements OnInit {
 
   ngOnInit(): void {
     this.playListData =  JSON.parse(localStorage.getItem('playlist'));
-
   }
 
   openDialog(): void {
@@ -31,20 +30,17 @@ export class PlaylistSongsComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed', result);
-      this.playListData = JSON.parse(localStorage.getItem(result.playlistname));
+      this.playListData = JSON.parse(localStorage.getItem('playlist'));
     });
   }
 
   onSelectPlaylist(list) {
-    console.log(list)
       this.showPlayList = true;
       this.currentPlayList = list.playlistname;
       this.playListSongs = JSON.parse(localStorage.getItem(list.playlistname));
   }
 
   deleteSong(song) {
-    console.log("Delete song", song, this.playListSongs);
     this.playListSongs = this.playListSongs.filter(item => item.id != song.id);
     localStorage.setItem(this.currentPlayList, JSON.stringify(this.playListSongs));
     this.snackBar.open(this.message, 'Ok', {
@@ -63,13 +59,13 @@ export class PlaylistSongsComponent implements OnInit {
 
   addSong(): void{
       const dialogRef = this.dialog.open(AddSongDialogComponent, {
-        width: '650px',
-        data: {}
+        width: '1250px',
+        data: {"currentPlayList": this.currentPlayList }
   
       });
   
       dialogRef.afterClosed().subscribe(result => {
-        console.log('The dialog was closed', result);
+        this.playListSongs = JSON.parse(localStorage.getItem(this.currentPlayList));
       });
   }
 }

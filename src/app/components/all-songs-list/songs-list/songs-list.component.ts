@@ -22,33 +22,30 @@ export class SongsListComponent implements OnInit {
   filteredStates: Observable<State[]>;
   states: State[];
   albumSongs = [];
+  albumFiltered = [];
   constructor(private restService: RestService) {
     
   }
 
   ngOnInit(){
+
+    this.restService.getAllSongsFromAlbum().subscribe(([res1, res2, res3]) => {
+      this.albumSongs.push(...res1, ...res2, ...res3);
+      this.albumFiltered = this.albumSongs;
+    })
+    
     this.restService.getAllSongsList().subscribe(res => {
-      console.log(res);
       this.states = res;
-      this.filteredStates = this.stateCtrl.valueChanges
-      .pipe(
-        startWith(''),
-        map(state => state ? this._filterStates(state) : this.states.slice())
-      );
     })
     
   }
 
-  private _filterStates(value: string): State[] {
-    const filterValue = value.toLowerCase();
-
-    return this.states.filter(state => state.title.toLowerCase().indexOf(filterValue) === 0);
+  onSearchFilter(event) {
+    this.albumFiltered = this.albumSongs.filter(item => item.title.toLowerCase().indexOf(event.target.value) === 0)
   }
 
   onSelect(state) {
-    console.log(state);
     this.restService.searchAlbums(state.userId).subscribe(res=> {
-      console.log(res);
       this.albumSongs = res;
     })
   }
