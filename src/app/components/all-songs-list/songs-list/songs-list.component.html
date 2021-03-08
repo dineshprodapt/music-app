@@ -1,0 +1,28 @@
+<div class="songs-list">
+    <mat-form-field>
+        <mat-label>Search for Albums</mat-label>
+        <input matInput
+               aria-label="Songs"
+               placeholder="Songs"
+               [matAutocomplete]="auto"
+               [formControl]="stateCtrl">
+        <mat-autocomplete #auto="matAutocomplete">
+          <mat-option *ngFor="let state of filteredStates | async" [value]="state.title" (click)="onSelect(state)">
+            <span>{{state.title}}</span>
+          </mat-option>
+        </mat-autocomplete>
+    </mat-form-field>
+</div> 
+
+<div class="mat-elevation-z4 songs_list__elevate" *ngFor="let item of albumSongs">
+    <mat-list role="list" class="container">
+        <div class="container__left">
+            <mat-list-item role="listitem">Song Name: {{item.title}}</mat-list-item>
+            <mat-list-item role="listitem">Album Id: {{item.albumId}}</mat-list-item>
+        </div>
+        <div class="container__right">
+            <img src='{{item.thumbnailUrl}}' alt="image" height="90" width="90"/>
+        </div>
+    </mat-list>
+</div>
+

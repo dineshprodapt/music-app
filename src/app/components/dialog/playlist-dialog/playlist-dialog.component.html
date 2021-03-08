@@ -1,0 +1,21 @@
+
+<h2 mat-dialog-title>Create Playlist</h2>
+<div mat-dialog-content>
+    <p>Pick your Favourite Album!</p>
+  <mat-form-field>
+    <mat-label>Choose Playlist Name</mat-label>
+    <input matInput [(ngModel)]="data.playlistname">
+  </mat-form-field>
+  <mat-form-field class="dialog-album" appearance="standard">
+    <mat-label>Album ID</mat-label>
+    <mat-select [(ngModel)]="data.albumId">
+      <mat-option *ngFor="let item of filteredArray" [value]="item.userId">
+        {{item.userId}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+<div class="dialog-btn" mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Cancel</button>
+  <button mat-raised-button cdkFocusInitial (click)="createPlayList()">Create</button>
+</div>

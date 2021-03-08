@@ -1,0 +1,24 @@
+.playlist {
+    margin: 50px;
+    h4 {
+        text-align: center;
+        color: red;
+    }
+    .playlist__elevate {
+        margin: 20px 120px;
+    }
+    .playlist__btn {
+        text-align: center;
+        button {
+            border: 1px solid lightgrey;
+        }
+    }
+    
+.container {
+    cursor: pointer;
+    &__left {
+        float: left;
+        width: 60%;
+    }
+}
+}

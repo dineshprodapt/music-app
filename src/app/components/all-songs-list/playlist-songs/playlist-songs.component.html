@@ -1,0 +1,32 @@
+<div *ngIf="!showPlayList" class="playlist">
+    <h4 *ngIf="playListData.length == 0">You don't have Playlist. Create one!</h4>
+    <div *ngIf="playListData.length > 0">
+        <div class="mat-elevation-z4 playlist__elevate" *ngFor="let item of playListData">
+            <mat-list role="list" class="container" (click)="onSelectPlaylist(item)">
+                <div class="container__left">
+                    <mat-list-item role="listitem">{{item.playlistname}}</mat-list-item>
+                </div>
+                <div class="container__right">
+                    <mat-list-item role="listitem">Created At: {{item.creationDate | date: 'MMM d, y, h:mm:ss a'}}</mat-list-item>
+                </div>
+            </mat-list>
+        </div>
+    </div>
+    
+    <div class="playlist__btn">
+        <button mat-raised-button type="button" (click)="openDialog()">Create Playlist</button>
+    </div>
+</div>
+<div *ngIf="showPlayList">
+    <div class="mat-elevation-z4 songs_list__elevate" *ngFor="let item of playListSongs">
+        <mat-list role="list" class="container">
+            <div class="container__left">
+                <mat-list-item role="listitem">Song Name: {{item.title}}</mat-list-item>
+                <mat-list-item role="listitem">Album Id: {{item.albumId}}</mat-list-item>
+            </div>
+            <div class="container__right">
+                <img src='{{item.thumbnailUrl}}' alt="image" height="90" width="90"/>
+            </div>
+        </mat-list>
+    </div>
+</div>
