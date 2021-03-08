@@ -14,11 +14,31 @@
         }
     }
     
+}
 .container {
     cursor: pointer;
     &__left {
         float: left;
         width: 60%;
     }
-}
-}
+    &__right button {
+            position: relative;
+            left: 110px;
+            top: -40px;
+        }
+    }
+
+    .playlist-btn {
+        margin: 15px;
+    }
+    .add__playlist {
+        float: right;
+        margin-right: 122px;
+        margin-top: 20px;
+        button:nth-child(2) {
+            margin-left: 10px;
+        }
+    }
+    .add__playlist--name {
+        margin-left: 16px;
+    }

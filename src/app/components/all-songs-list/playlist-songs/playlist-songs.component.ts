@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { AddSongDialogComponent } from '../../dialog/add-song-dialog/add-song-dialog.component';
 import { PlaylistDialogComponent } from '../../dialog/playlist-dialog/playlist-dialog.component';
 
 @Component({
@@ -9,10 +11,12 @@ import { PlaylistDialogComponent } from '../../dialog/playlist-dialog/playlist-d
 })
 export class PlaylistSongsComponent implements OnInit {
 
-  constructor(public dialog: MatDialog) { }
+  constructor(public dialog: MatDialog, private snackBar: MatSnackBar) { }
   playListData = [];
   playListSongs = [];
+  currentPlayList: string;
   showPlayList: boolean = false;
+  message: string = "Song Deleted Successfully!"
 
   ngOnInit(): void {
     this.playListData =  JSON.parse(localStorage.getItem('playlist'));
@@ -35,6 +39,37 @@ export class PlaylistSongsComponent implements OnInit {
   onSelectPlaylist(list) {
     console.log(list)
       this.showPlayList = true;
+      this.currentPlayList = list.playlistname;
       this.playListSongs = JSON.parse(localStorage.getItem(list.playlistname));
+  }
+
+  deleteSong(song) {
+    console.log("Delete song", song, this.playListSongs);
+    this.playListSongs = this.playListSongs.filter(item => item.id != song.id);
+    localStorage.setItem(this.currentPlayList, JSON.stringify(this.playListSongs));
+    this.snackBar.open(this.message, 'Ok', {
+      duration: 2000,
+    });
+  }
+
+  backToPlaylist() {
+    this.showPlayList = false;
+  }
+
+  shuffleSongs() {
+    var shuffle = (array) => array.sort(() => Math.random() - 0.5);
+    shuffle(this.playListSongs);
+  }
+
+  addSong(): void{
+      const dialogRef = this.dialog.open(AddSongDialogComponent, {
+        width: '650px',
+        data: {}
+  
+      });
+  
+      dialogRef.afterClosed().subscribe(result => {
+        console.log('The dialog was closed', result);
+      });
   }
 }

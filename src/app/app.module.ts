@@ -9,6 +9,7 @@ import { SongsListComponent } from './components/all-songs-list/songs-list/songs
 import { PlaylistSongsComponent } from './components/all-songs-list/playlist-songs/playlist-songs.component';
 import { AppCommonModule } from './common/common.module';
 import { PlaylistDialogComponent } from './components/dialog/playlist-dialog/playlist-dialog.component';
+import { AddSongDialogComponent } from './components/dialog/add-song-dialog/add-song-dialog.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { PlaylistDialogComponent } from './components/dialog/playlist-dialog/pla
     AllSongsListComponent,
     SongsListComponent,
     PlaylistSongsComponent,
-    PlaylistDialogComponent
+    PlaylistDialogComponent,
+    AddSongDialogComponent
   ],
   imports: [
     BrowserModule,
